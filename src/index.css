@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Luxury Event Planner Color Palette */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 6%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 6%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Royal Purple */
+    --primary: 270 60% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Deep Black with slight purple tint */
+    --secondary: 260 15% 12%;
+    --secondary-foreground: 0 0% 98%;
+
+    /* Gold */
+    --gold: 45 100% 50%;
+    --gold-foreground: 240 10% 3.9%;
+
+    /* Rose Gold Accent */
+    --rose-gold: 15 50% 65%;
+    --rose-gold-foreground: 240 10% 3.9%;
+
+    --muted: 240 5% 15%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 270 40% 20%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 270 20% 20%;
+    --input: 270 20% 18%;
+    --ring: 270 60% 50%;
+
+    --radius: 0.5rem;
+
+    /* Custom Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(45, 100%, 50%), hsl(35, 100%, 45%));
+    --gradient-purple: linear-gradient(135deg, hsl(270, 60%, 50%), hsl(290, 50%, 40%));
+    --gradient-hero: linear-gradient(180deg, transparent 0%, hsla(240, 10%, 3.9%, 0.4) 40%, hsla(240, 10%, 3.9%, 0.9) 100%);
+    --gradient-card: linear-gradient(145deg, hsla(270, 40%, 20%, 0.5), hsla(270, 40%, 10%, 0.8));
+
+    /* Shadows */
+    --shadow-gold: 0 0 40px hsla(45, 100%, 50%, 0.3);
+    --shadow-purple: 0 0 60px hsla(270, 60%, 50%, 0.2);
+    --shadow-card: 0 25px 50px -12px hsla(0, 0%, 0%, 0.5);
+
+    --sidebar-background: 240 10% 6%;
+    --sidebar-foreground: 240 5% 65%;
+    --sidebar-primary: 270 60% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 270 40% 20%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 270 20% 20%;
+    --sidebar-ring: 270 60% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-sans {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, hsl(45, 100%, 50%), hsl(35, 100%, 60%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-purple {
+    background: linear-gradient(135deg, hsl(270, 60%, 60%), hsl(290, 50%, 50%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-gradient-hero {
+    background: linear-gradient(180deg, transparent 0%, hsla(240, 10%, 3.9%, 0.4) 40%, hsla(240, 10%, 3.9%, 0.95) 100%);
+  }
+
+  .bg-gradient-card {
+    background: linear-gradient(145deg, hsla(270, 40%, 20%, 0.5), hsla(270, 40%, 10%, 0.8));
+  }
+
+  .bg-gradient-gold {
+    background: linear-gradient(135deg, hsl(45, 100%, 50%), hsl(35, 100%, 45%));
+  }
+
+  .bg-gradient-purple {
+    background: linear-gradient(135deg, hsl(270, 60%, 50%), hsl(290, 50%, 40%));
+  }
+
+  .shadow-gold {
+    box-shadow: 0 0 40px hsla(45, 100%, 50%, 0.3);
+  }
+
+  .shadow-purple {
+    box-shadow: 0 0 60px hsla(270, 60%, 50%, 0.2);
+  }
+
+  .shadow-card {
+    box-shadow: 0 25px 50px -12px hsla(0, 0%, 0%, 0.5);
+  }
+
+  .border-gold {
+    border-color: hsl(45, 100%, 50%);
+  }
+
+  .glass {
+    background: hsla(270, 20%, 10%, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .glass-light {
+    background: hsla(0, 0%, 100%, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(240, 10%, 6%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(270, 40%, 30%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(270, 60%, 50%);
+}
+
+/* Selection color */
+::selection {
+  background: hsla(270, 60%, 50%, 0.4);
+  color: hsl(0, 0%, 100%);
+}
