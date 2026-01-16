@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 
 const navLinks = [
@@ -16,47 +16,62 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navRef = useRef<HTMLDivElement | null>(null);
 
+  // Scroll background change
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close menu on route change
   useEffect(() => {
     setIsOpen(false);
   }, [location]);
 
+  // ✅ Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isOpen &&
+        navRef.current &&
+        !navRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
   return (
     <motion.nav
+      ref={navRef}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled 
-          ? "bg-background/95 backdrop-blur-xl border-b border-border py-3 shadow-lg" 
+        scrolled
+          ? "bg-background/95 backdrop-blur-xl border-b border-border py-3 shadow-lg"
           : "bg-background/60 backdrop-blur-md py-5"
       }`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
-       {/* Logo */}
-<Link to="/" className="flex items-center gap-3 group">
-  <motion.img
-    src="/logo.jpeg"
-    alt="Luxe Events Logo"
-    className={`w-auto object-contain transition-all duration-300 ${
-      scrolled ? "h-8 md:h-9" : "h-10 md:h-12"
-    }`}
-    whileHover={{ scale: 1.05 }}
-  />
-
-  <span className="hidden sm:block font-display text-xl md:text-2xl font-bold text-gradient-gold">
-    Ganesh Event Management
-  </span>
-</Link>
-
+        <Link to="/" className="flex items-center gap-3 group">
+          <motion.img
+            src="/logo.jpeg"
+            alt="Ganesh Event Management Logo"
+            className={`w-auto object-contain transition-all duration-300 ${
+              scrolled ? "h-8 md:h-9" : "h-10 md:h-12"
+            }`}
+            whileHover={{ scale: 1.05 }}
+          />
+          <span className="hidden sm:block font-display text-xl md:text-2xl font-bold text-gradient-gold">
+            Ganesh Event Management
+          </span>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
@@ -64,7 +79,7 @@ export const Navbar = () => {
             <Link
               key={link.name}
               to={link.path}
-              className={`relative text-sm font-medium transition-colors duration-300 ${
+              className={`relative text-sm font-medium transition-colors ${
                 location.pathname === link.path
                   ? "text-gold"
                   : "text-muted-foreground hover:text-foreground"
@@ -81,16 +96,16 @@ export const Navbar = () => {
           ))}
         </div>
 
-        {/* CTA Button */}
+        {/* CTA */}
         <div className="hidden md:block">
           <Button variant="gold" size="lg" asChild>
             <Link to="/contact">Book Your Event</Link>
           </Button>
         </div>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Toggle */}
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen((prev) => !prev)}
           className="md:hidden p-2 text-foreground"
           aria-label="Toggle menu"
         >
@@ -113,10 +128,11 @@ export const Navbar = () => {
                   key={link.name}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.08 }}
                 >
                   <Link
                     to={link.path}
+                    onClick={() => setIsOpen(false)}
                     className={`block py-2 text-lg font-medium ${
                       location.pathname === link.path
                         ? "text-gold"
@@ -127,7 +143,14 @@ export const Navbar = () => {
                   </Link>
                 </motion.div>
               ))}
-              <Button variant="gold" size="lg" className="mt-4" asChild>
+
+              <Button
+                variant="gold"
+                size="lg"
+                className="mt-4"
+                asChild
+                onClick={() => setIsOpen(false)}
+              >
                 <Link to="/contact">Book Your Event</Link>
               </Button>
             </div>
