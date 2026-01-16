@@ -8,6 +8,7 @@ import { GalleryPreview } from "@/components/GalleryPreview";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { Testimonials } from "@/components/Testimonials";
 import { CTASection } from "@/components/CTASection";
+import { PricingCatalog } from "@/components/PricingCatalog";
 import { Footer } from "@/components/Footer";
 
 const Index = () => {
@@ -16,6 +17,7 @@ const Index = () => {
       <Navbar />
       <Hero />
       <ServicesPreview />
+      <PricingCatalog />
       <FeaturedEvents />
       <ProcessSection />
       <StatsSection />
